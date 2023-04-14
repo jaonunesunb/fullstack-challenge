@@ -7,7 +7,9 @@ import AppError from "../../errors/AppError";
 const createClientService = async (clientData: IClient) => {
   const clientRepository = AppDataSource.getRepository(Client);
 
-  const existingClient = await clientRepository.findOne({ where: { email: clientData.email } });
+  const existingClient = await clientRepository.findOne({
+    where: { email: clientData.email },
+  });
   if (existingClient) {
     throw new AppError("Email already registered for another client", 409);
   }
@@ -16,12 +18,14 @@ const createClientService = async (clientData: IClient) => {
 
   await clientRepository.save(createdClient);
 
-  const response = await clientRepository.find({
+  const response = await clientRepository.findOne({
     where: { id: createdClient.id },
-    relations: ["contacts"],
+    relations: { contacts: true },
   });
-  
-  const validatedClient = await ClientWithContactsSchema.validate(response, { stripUnknown: true });
+
+  const validatedClient = await ClientWithContactsSchema.validate(response, {
+    stripUnknown: true,
+  });
 
   return validatedClient;
 };

@@ -1,5 +1,5 @@
 import AppDataSource from "../../data-source";
-import { User } from "../../entities/user";
+import { User } from "../../entities/User";
 import AppError from "../../errors/AppError";
 
 const deleteUserService = async (userID: string) => {

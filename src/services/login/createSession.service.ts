@@ -3,7 +3,7 @@ import { compare } from "bcryptjs";
 import AppDataSource from "../../data-source";
 import "dotenv/config";
 import AppError from "../../errors/AppError";
-import { User } from "../../entities/user";
+import { User } from "../../entities/User";
 import { IUser } from "../../interfaces/user";
 
 export const createSessionService = async ({

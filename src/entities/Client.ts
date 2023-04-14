@@ -25,11 +25,9 @@ export class Client {
   @Column()
   phone!: string;
 
-  @BeforeInsert()
   @CreateDateColumn({ name: "created_at" })
   createdAt!: Date;
 
-  @BeforeUpdate()
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt!: Date;
 

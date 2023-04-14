@@ -1,5 +1,5 @@
 import AppDataSource from "../../data-source";
-import { User } from "../../entities/user";
+import { User } from "../../entities/User";
 import { hashSync } from "bcryptjs";
 import { IUserUpdate } from "../../interfaces/user";
 import { userUpdatedSchema } from "../../schemas/userSchemas/userSchemas";

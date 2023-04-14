@@ -1,6 +1,6 @@
 import AppDataSource from "../../data-source";
 import { allUserResponseSchema } from "../../schemas/userSchemas/userSchemas";
-import { User } from "../../entities/user";
+import { User } from "../../entities/User";
 const getUsersService = async () => {
   const userRepository = AppDataSource.getRepository(User);
 

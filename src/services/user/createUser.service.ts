@@ -1,7 +1,7 @@
 import { IUserRequest } from "../../interfaces/user";
 import AppDataSource from "../../data-source";
 import { userWithoutPasswordSchema } from "../../schemas/userSchemas/userSchemas";
-import { User } from "../../entities/user";
+import { User } from "../../entities/User";
 import AppError from "../../errors/AppError";
 import { hashSync } from "bcryptjs";
 
