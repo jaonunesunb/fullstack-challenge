@@ -1,14 +1,11 @@
-import { IContact } from "../../interfaces/Contact";
+import { IContactRequest } from "../../interfaces/contact";
 import AppDataSource from "../../data-source";
-import { Contact } from "../../entities/Contact";
-import { Client } from "../../entities/Client";
-import { ContactSchema } from "../../schemas/contactSchema/contact.schema";
+import { ContactResponseSchema } from "../../schemas/contactSchema/contact.schema";
 import AppError from "../../errors/AppError";
-import { DeepPartial } from "typeorm";
+import { Contact } from "../../entities/Contact";
 
-const createContactService = async (contactData: IContact) => {
+const createContactService = async (contactData: IContactRequest) => {
   const contactRepository = AppDataSource.getRepository(Contact);
-  const clientRepository = AppDataSource.getRepository(Client);
 
   const existingContact = await contactRepository.findOne({
     where: { email: contactData.email },
@@ -18,22 +15,11 @@ const createContactService = async (contactData: IContact) => {
     throw new AppError("Contact already registered", 409);
   }
 
-  const client = await clientRepository.findOne({
-    where: { id: contactData.clientId },
-  });
-
-  if (!client) {
-    throw new AppError("Client not found", 404);
-  }
-
-  const createdContact = contactRepository.create({
-    ...contactData,
-    client: client,
-  } as DeepPartial<Contact>);
+  const createdContact = contactRepository.create(contactData);
 
   await contactRepository.save(createdContact);
 
-  const validatedContact = await ContactSchema.validate(createdContact, {
+  const validatedContact = await ContactResponseSchema.validate(createdContact, {
     stripUnknown: true,
   });
 

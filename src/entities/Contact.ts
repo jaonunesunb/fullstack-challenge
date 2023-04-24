@@ -6,11 +6,11 @@ import {
   BeforeInsert,
   BeforeUpdate,
   UpdateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from "typeorm";
-import { Client } from "./Client";
+import { User } from "./User";
 
-@Entity({ name: "contact" })
+@Entity({ name: "contacts" })
 export class Contact {
   @PrimaryGeneratedColumn()
   readonly id!: number;
@@ -23,15 +23,15 @@ export class Contact {
 
   @Column()
   phone!: string;
+ 
+  @ManyToOne((type) => User, (user) => user.contacts)
+  user!: User;
 
-  @OneToMany(() => Client, (client) => client.contacts)
-  clients!: Client[];
-
-  @BeforeInsert()
   @CreateDateColumn({ name: "created_at" })
   createdAt!: Date;
 
   @BeforeUpdate()
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt!: Date;
+
 }

@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { IContact, IContactUpdate } from "../../interfaces/Contact";
+import {
+  IContactRequest,
+  IContactResponse,
+  IContactUpdate,
+} from "../../interfaces/contact";
 import createContactService from "../../services/contact/createContact.service";
 import updateContactService from "../../services/contact/updateContact.service";
 import getContactService from "../../services/contact/getContact.service";
@@ -7,7 +11,7 @@ import { deleteContactService } from "../../services/contact/deleteContact.servi
 import { getContactByIdService } from "../../services/contact/getContactById.service";
 
 const createContactController = async (req: Request, res: Response) => {
-  const contactData: IContact = req.body;
+  const contactData: IContactRequest = req.body;
   const newContact = await createContactService(contactData);
   return res.status(201).json(newContact);
 };

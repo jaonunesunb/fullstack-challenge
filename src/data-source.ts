@@ -1,10 +1,8 @@
 import { DataSource } from "typeorm";
 import { User } from "./entities/User";
-import { Client } from "../src/entities/Client";
 import { Contact } from "../src/entities/Contact";
 import "dotenv/config";
-import { initial1681501114257 } from "./migrations/1681501114257-initial";
-import { initial1681501337126 } from "./migrations/1681501337126-initial";
+import { InitialMigration1682184290832 } from "./migrations/1682184290832-InitialMigration";
 
 const AppDataSource = new DataSource(
   process.env.NODE_ENV === "test"
@@ -23,8 +21,8 @@ const AppDataSource = new DataSource(
         database: process.env.PGDATABASE!,
         logging: true,
         synchronize: false,
-        entities: [User, Client, Contact],
-        migrations: [initial1681501114257, initial1681501337126],
+        entities: [User, Contact],
+        migrations: [InitialMigration1682184290832],
       }
 );
 

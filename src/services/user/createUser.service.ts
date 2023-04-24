@@ -17,6 +17,9 @@ const createUserService = async (userData: IUserRequest) => {
     throw new AppError("Email already in use", 409);
   }
 
+  if (userData.password != userData.passwordConfirmation) {
+    throw new AppError("Passwords didn't match", 400);
+  }
   const userCreated = userRepository.create(userData);
 
   userCreated.password = hashSync(userData.password, 10);

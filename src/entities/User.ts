@@ -7,7 +7,9 @@ import {
   UpdateDateColumn,
   BeforeUpdate,
   BeforeInsert,
+  OneToMany,
 } from "typeorm";
+import { Contact } from "./Contact";
 
 @Entity({ name: "users" })
 export class User {
@@ -20,13 +22,18 @@ export class User {
   @Column({ unique: true, length: 70, nullable: false })
   email!: string;
 
-  @Column({ length: 120 })
+  @Column({ length: 120, nullable: false})
   password!: string;
+
+  @Column({ length: 120, nullable: false})
+  passwordConfirmation!: string;
 
   @Column({ default: true })
   isActive!: boolean;
 
-  @BeforeInsert()
+  @OneToMany((type) => Contact, (contact) => contact.user)
+  contacts!: Contact[];
+
   @CreateDateColumn({ name: "created_at" })
   createdAt!: Date;
 
@@ -35,4 +42,3 @@ export class User {
   updatedAt!: Date;
 
 }
-

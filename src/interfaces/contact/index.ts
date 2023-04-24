@@ -1,14 +1,21 @@
-import { IClient } from "../client";
+import { IUser } from "../user";
 
-export interface IContact {
+export interface IContactRequest {
+  name: string;
+  email: string;
+  phone: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+export interface IContactResponse {
   id?: number;
   name: string;
   email: string;
   phone: string;
   created_at?: Date;
   updated_at?: Date;
-  client?: IClient;
-  clientId?: number;
+  client?: IUser;
 }
 
 export interface IContactUpdate {

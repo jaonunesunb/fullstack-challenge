@@ -6,7 +6,7 @@ export const userSchema: Schema<Omit<IUser, "id" | "createdAt" | "updatedAt">, a
   email: yup.string().email().required(),
   name: yup.string().required(),
   password: yup.string().min(6).required(),
-  isAdm: yup.boolean().required(),
+  passwordConfirmation: yup.string().min(6).required(),
 });
 
 export const userUpdatedSchema = yup
@@ -22,7 +22,6 @@ export const userWithoutPasswordSchema = yup
     id: yup.string().notRequired(),
     name: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
-    isAdm: yup.boolean().notRequired(),
     isActive: yup.boolean().notRequired(),
     createdAt: yup.date().notRequired(),
     updatedAt: yup.date().notRequired().nullable(),
