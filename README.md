@@ -2,6 +2,20 @@
 ## Descrição
 Este projeto é uma API para cadastro de usuários e gerenciamento de contatos. Após o cadastro, os usuários podem criar, editar e excluir seus próprios contatos. Além disso, é possível editar e excluir o próprio perfil.
 
+## Variáveis de ambiente
+Para que a aplicação possa se comunicar com o banco de dados, é necessário fornecer as informações de conexão do PostgresSQL no arquivo .env. As variáveis de ambiente que devem ser definidas no arquivo .env são as seguintes:
+
+```
+PGHOST=<endereço-do-banco-de-dados>
+PGPORT=<porta-do-banco-de-dados>
+PGUSER=<usuário-do-banco-de-dados>
+PGPASSWORD=<senha-do-banco-de-dados>
+PGDATABASE=<nome-do-banco-de-dados>
+SECRET_KEY=<chave-secreta-utilizada-pela-aplicação>
+```
+A aplicação possui um arquivo .env.exemple.
+Certifique-se de preencher cada uma dessas variáveis com as informações corretas do seu ambiente de desenvolvimento ou produção.
+
 ## Tecnologias utilizadas
 * Node.js
 * Express
