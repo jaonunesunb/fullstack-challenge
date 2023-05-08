@@ -15,7 +15,7 @@ export interface IContactResponse {
   phone: string;
   created_at?: Date;
   updated_at?: Date;
-  client?: IUser;
+  user?: IUser;
 }
 
 export interface IContactUpdate {

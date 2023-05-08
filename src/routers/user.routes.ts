@@ -4,16 +4,14 @@ import {
   userListController,
   updatedUserController,
   deleteUserController,
+  getUserByIdController,
 } from "../controllers/user/user.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
 import { regexUuidValidation } from "../middlewares/regexValidation.middleware";
 import { userSchema } from "../schemas/userSchemas/userSchemas";
-import cors from 'cors';
-
 
 const userRoutes = Router();
-userRoutes.use(cors()); // definir cors middleware aqui
 
 userRoutes.post(
   "/register",
@@ -21,8 +19,7 @@ userRoutes.post(
   createUserController
 );
 
-userRoutes.get("", ensureAuthMiddleware, userListController
-);
+userRoutes.get("", ensureAuthMiddleware, userListController);
 
 userRoutes.patch(
   "/:id",
@@ -31,10 +28,8 @@ userRoutes.patch(
   updatedUserController
 );
 
-userRoutes.delete(
-  "/:id",
-  ensureAuthMiddleware,
-  deleteUserController
-);
+userRoutes.get("/:id", ensureAuthMiddleware, getUserByIdController);
+
+userRoutes.delete("/:id", ensureAuthMiddleware, deleteUserController);
 
 export default userRoutes;

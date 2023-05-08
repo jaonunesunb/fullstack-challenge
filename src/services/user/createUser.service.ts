@@ -1,4 +1,4 @@
-import { IUserRequest } from "../../interfaces/user";
+import { IUser, IUserRequest, IUserResponse } from "../../interfaces/user";
 import AppDataSource from "../../data-source";
 import { userWithoutPasswordSchema } from "../../schemas/userSchemas/userSchemas";
 import { User } from "../../entities/User";

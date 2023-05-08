@@ -1,5 +1,7 @@
+import { UUID } from "crypto";
+
 export interface IUser {
-    id: string;
+    id: UUID;
     name: string;
     email: string;
     password: string;
@@ -15,7 +17,7 @@ export interface IUser {
   }
   
   export interface IUserResponse {
-    id: string;
+    id: UUID;
     name: string;
     email: string;
     createdAt: Date;

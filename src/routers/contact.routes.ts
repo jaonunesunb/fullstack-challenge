@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import {
   createContactController,
   contactListController,
@@ -7,10 +7,8 @@ import {
   getContactByIdController,
 } from "../controllers/contact/contact.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
-import cors from "cors";
 
-const contactRoutes = express.Router();
-contactRoutes.use(cors());
+const contactRoutes = Router();
 
 contactRoutes.get("/", ensureAuthMiddleware, contactListController);
 contactRoutes.get("/:id", ensureAuthMiddleware, getContactByIdController);

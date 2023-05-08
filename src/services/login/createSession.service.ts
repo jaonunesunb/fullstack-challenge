@@ -4,37 +4,41 @@ import AppDataSource from "../../data-source";
 import "dotenv/config";
 import AppError from "../../errors/AppError";
 import { User } from "../../entities/User";
-import { IUser } from "../../interfaces/user";
+import { IUserLogin } from "../../interfaces/user";
 
-export const createSessionService = async ({
-  email,
-  password,
-}: IUser): Promise<string> => {
+export const createSessionService = async (
+  data: IUserLogin
+): Promise<{ token: string; user: User }> => {
+  if (!data.email || !data.password) {
+    throw new AppError("Email and password are required", 400);
+  }
+
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOneBy({
-    email: email,
+    email: data.email,
   });
 
   if (user) {
-    const passwordMatch = await compare(password, user.password);
+    const passwordMatch = await compare(data.password, user.password);
 
     if (!passwordMatch) {
       throw new AppError("User or password invalid", 403);
     }
 
+    
     const token = jwt.sign(
       {
-        email: email,
         id: user.id,
+        email: user.email,
+        name: user.name,
       },
-      process.env.SECRET_KEY!,
+      String(process.env.SECRET_KEY),
       {
-        subject: user.id,
         expiresIn: "1d",
       }
     );
-    return token;
+    return { token, user };
   }
 
   throw new AppError("User or password invalid", 403);

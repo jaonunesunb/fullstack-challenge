@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from "express";
 import AppError from "../errors/AppError";
 
 export const ensureAuthMiddleware = async (
-  req: Request & { client: { id: number } },
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -16,18 +16,17 @@ export const ensureAuthMiddleware = async (
 
   token = token.split(" ")[1];
 
-  jwt.verify(token, String(process.env.SECRET_KEY), (error, decoded: any) => {
-    if (error) {
-      throw new AppError(error.message, 401);
-    }
+  try {
+    const decodedToken: any = jwt.verify(token, String(process.env.SECRET_KEY));
 
     req.user = {
-      id: decoded.sub as string,
-      email: decoded.email as string,
+      id: decodedToken.id,
+      email: decodedToken.email,
+      name: decodedToken.name,
     };
 
-    req.client = { id: decoded.clientId as number };
-
     return next();
-  });
+  } catch (error) {
+    throw new AppError("Invalid token", 401);
+  }
 };

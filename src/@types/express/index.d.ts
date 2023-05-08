@@ -1,4 +1,4 @@
-import express from 'express'
+import { UUID } from "crypto";
 
 declare global {
   namespace Express {
@@ -7,10 +7,8 @@ declare global {
         id: string;
         email?: string;
         isActve?: boolean;
+        name: string;
       };
-      client: {
-        id: number
-      }
     }
   }
 }
